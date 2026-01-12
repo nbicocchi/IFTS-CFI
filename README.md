@@ -1,4 +1,4 @@
-# IFTS CFI 2024-2025
+# IFTS CFI
 
 ### Software
 
