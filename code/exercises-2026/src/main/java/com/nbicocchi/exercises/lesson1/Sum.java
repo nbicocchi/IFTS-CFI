@@ -1,4 +1,4 @@
-package com.nbicocchi.exercises;
+package com.nbicocchi.exercises.lesson1;
 
 public class Sum {
     public static void main(String[] args) {
