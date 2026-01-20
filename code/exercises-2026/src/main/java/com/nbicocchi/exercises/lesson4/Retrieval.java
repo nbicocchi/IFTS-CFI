@@ -12,7 +12,6 @@ public class Retrieval {
             l.add(i);
         }
 
-
         long t1 = System.nanoTime();
         for (int i = 0; i < 100000; i++) {
             l.contains(i);
