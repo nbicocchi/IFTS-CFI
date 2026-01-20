@@ -1,11 +1,13 @@
 package com.nbicocchi.exercises.lesson2;
 
+import java.util.Scanner;
+
 public class Weather {
 
     public static void main(String[] args) {
-        //Scanner scanner = new Scanner(System.in);
-        //System.out.println("Inserisci temp :");
-        double t = 30;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Inserisci temp :");
+        double t = scanner.nextDouble();
 
         if (t > 30) {
             System.out.println("fa caldo");
