@@ -1,4 +1,4 @@
-package com.nbicocchi.exercises.lesson4;
+package com.nbicocchi.exercises.lesson5;
 
 import java.io.BufferedReader;
 import java.io.IOException;
