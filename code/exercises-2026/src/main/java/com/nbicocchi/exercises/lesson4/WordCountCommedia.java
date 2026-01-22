@@ -1,6 +1,7 @@
 package com.nbicocchi.exercises.lesson4;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -17,8 +18,30 @@ public class WordCountCommedia {
         return map;
     }
 
-    public static void read() {
-        InputStream is = getClass()
+    /**
+     * Trasforma una lista di righe in una lista di singole parole
+     * @param lines lista di righe del libro
+     * @return lista di parole
+     */
+    public static List<String> extractWords(List<String> lines) {
+        List<String> words = new ArrayList<>();
+
+        for (String line : lines) {
+            // Divido la riga in parole usando regex per separare su spazi e punteggiatura
+            String[] split = line.split("\\W+"); // \W+ = tutto ciò che non è lettera/numeri
+            // Aggiungo solo parole non vuote
+            for (String word : split) {
+                if (!word.isEmpty()) {
+                    words.add(word);
+                }
+            }
+        }
+
+        return words;
+    }
+
+    public static List<String> read() throws IOException {
+        InputStream is = WordCountCommedia.class
                 .getClassLoader()
                 .getResourceAsStream("commedia.txt");
 
@@ -28,19 +51,22 @@ public class WordCountCommedia {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         String line;
+        List<String> lines = new ArrayList<>();
         while ((line = reader.readLine()) != null) {
-            System.out.println(line);
+            lines.add(line);
         }
+        return lines;
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         List<String> l = new ArrayList<>();
         l.add("nicola");
         l.add("giulia");
         l.add("tre");
         l.add("tre");
-        System.out.println(toMap(l));
+        List<String> lines = read();
+        System.out.println(toMap(extractWords(lines)));
 
     }
 }
