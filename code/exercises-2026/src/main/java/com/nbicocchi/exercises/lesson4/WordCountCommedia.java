@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class WordCountCommedia {
     public static Map<String, Integer> toMap(List<String> l) {
@@ -59,6 +60,14 @@ public class WordCountCommedia {
 
     }
 
+    public static List<Map.Entry<String, Integer>> topNFrequentPairs(Map<String, Integer> counts, int n) {
+        return counts.entrySet()
+                .stream()
+                .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue())) // ordina decrescente
+                .limit(n)
+                .collect(Collectors.toList());
+    }
+
     public static void main(String[] args) throws IOException {
         List<String> l = new ArrayList<>();
         l.add("nicola");
@@ -66,7 +75,6 @@ public class WordCountCommedia {
         l.add("tre");
         l.add("tre");
         List<String> lines = read();
-        System.out.println(toMap(extractWords(lines)));
-
+        System.out.println(topNFrequentPairs(toMap(extractWords(lines)), 100));
     }
 }
