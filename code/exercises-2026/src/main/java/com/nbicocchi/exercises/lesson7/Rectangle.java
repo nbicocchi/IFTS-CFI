@@ -1,6 +1,7 @@
 package com.nbicocchi.exercises.lesson7;
 
 public class Rectangle {
+    // upper - left corner
     double x;
     double y;
     double w;
@@ -51,6 +52,14 @@ public class Rectangle {
 
     public double perimeter() {
         return 2 * (w + h);
+    }
+
+    public boolean isInside(Point p) {
+        if ((p.getX() > x) && (p.getX() < x + w) &&
+                (p.getY() > y) && (p.getY() < y + h)) {
+            return true;
+        }
+        return false;
     }
 
     @Override
