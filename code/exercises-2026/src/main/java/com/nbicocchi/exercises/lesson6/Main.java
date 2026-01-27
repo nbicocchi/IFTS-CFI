@@ -1,12 +1,11 @@
-package org.example;
+package com.nbicocchi.exercises.lesson6;
 
 import java.util.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main() {
-
+    public static void main(String[] args) {
         // push back
         // ArrayList<Integer> elenco = new ArrayList<Integer>();
         LinkedList<Integer> elenco = new LinkedList<Integer>();

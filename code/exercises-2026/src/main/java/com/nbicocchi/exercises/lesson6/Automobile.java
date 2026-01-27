@@ -1,4 +1,4 @@
-package org.example;
+package com.nbicocchi.exercises.lesson6;
 
 public abstract class Automobile {
 

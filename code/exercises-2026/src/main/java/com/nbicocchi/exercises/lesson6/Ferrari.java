@@ -1,4 +1,4 @@
-package org.example;
+package com.nbicocchi.exercises.lesson6;
 
 public class Ferrari extends Automobile {
 

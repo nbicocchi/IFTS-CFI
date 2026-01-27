@@ -1,4 +1,4 @@
-package org.example;
+package com.nbicocchi.exercises.lesson6;
 
 import java.util.HashMap;
 import java.util.Scanner;
