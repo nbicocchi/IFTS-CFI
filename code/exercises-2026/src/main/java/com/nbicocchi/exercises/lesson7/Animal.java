@@ -1,5 +1,8 @@
 package com.nbicocchi.exercises.lesson7;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Animal {
     String name;
 
@@ -12,9 +15,17 @@ public class Animal {
     }
 
     public static void main(String[] args) {
-        Animal a = new Animal("generico");
-        a.say();
-        Cat b = new Cat("ciccio");
-        b.say();
+        List<Animal> l = new ArrayList<>();
+        l.add(new Animal("a"));
+        l.add(new Cat("ciccio"));
+        l.add(new Dog("cane"));
+
+        for (Animal a : l) {
+            a.say();
+        }
+        
+
+
+
     }
 }
