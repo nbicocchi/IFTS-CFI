@@ -12,15 +12,17 @@ public class HelloController {
     @FXML
     private Canvas root;
     AnimationTimer timer;
-    double x = 100;
-    double y = 100;
-    double xSpeed = 0.1;
-    double ySpeed = 0.0;
+    Ball ball;
 
     @FXML
     public void initialize() {
+        initializeObjects();
         initializeTimer();
         initializeKeys();
+    }
+
+    void initializeObjects() {
+        ball = new Ball(0,0,0,0);
     }
 
     void initializeKeys() {
@@ -29,9 +31,9 @@ public class HelloController {
 
         root.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.A) {
-                xSpeed = -0.1;
+                ball.speedX = -0.1;
             } else if (event.getCode() == KeyCode.S) {
-                xSpeed = 0.1;
+                ball.speedX = 0.1;
             }
         });
     }
@@ -53,8 +55,8 @@ public class HelloController {
         gc.fillRect(0, 0, root.getWidth(), root.getHeight());
 
         gc.setFill(Color.RED);
-        gc.fillOval(x, y,10, 10);
-        x += xSpeed;
-        y += ySpeed;
+        gc.fillOval(ball.x, ball.y,10, 10);
+        ball.x += ball.speedX;
+        ball.y += ball.speedY;
     }
 }
