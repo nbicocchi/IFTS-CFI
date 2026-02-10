@@ -1,17 +1,111 @@
 package org.example.demobb;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.animation.AnimationTimer;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 public class HelloController {
-
+    @FXML
+    private ListView<Person> lvPersons;
 
     @FXML
-    public void initialize() {
+    private TextField tfLastname;
+
+    @FXML
+    private TextField tfName;
+
+    @FXML
+    private TextField tfPhone;
+
+    @FXML
+    void onAddClicked(ActionEvent event) {
+        Person p = new Person(tfName.getText(),
+                tfLastname.getText(),
+                tfPhone.getText());
+        lvPersons.getItems().add(p);
+    }
+
+    @FXML
+    void onModilyClicked(ActionEvent event) {
+        Person p = new Person(tfName.getText(),
+                tfLastname.getText(),
+                tfPhone.getText());
+        int indexToUpdate = lvPersons.getSelectionModel().getSelectedIndex();
+        lvPersons.getItems().set(indexToUpdate, p);
+    }
+
+    @FXML
+    void onRemoveClicked(ActionEvent event) {
+        int indexToRemovre = lvPersons.getSelectionModel().getSelectedIndex();
+        lvPersons.getItems().remove(indexToRemovre);
+    }
+
+    @FXML
+    void onOpenClicked(ActionEvent event) {
+        // Crea un FileChooser per scegliere il file da aprire
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Apri file JSON");
+
+        // Mostra la finestra di dialogo per aprire
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                // Legge la lista di persone dal file JSON
+                List<Person> persons = mapper.readValue(
+                        file,
+                        new TypeReference<List<Person>>() {}
+                );
+
+                // Aggiorna la ListView
+                lvPersons.getItems().setAll(persons);
+
+                System.out.println("File caricato da: " + file.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    void onCloseClicked(ActionEvent event) {
+        System.out.println("close");
+    }
+
+    @FXML
+    void onSaveClicked(ActionEvent event) {
+        // Crea un FileChooser per far scegliere dove salvare
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Salva file JSON");
+
+        // Mostra la finestra di dialogo per salvare
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                // Scrivi la lista di persone in JSON
+                mapper.writerWithDefaultPrettyPrinter().writeValue(file, lvPersons.getItems());
+                System.out.println("File salvato in: " + file.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
