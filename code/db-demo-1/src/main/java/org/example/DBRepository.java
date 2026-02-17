@@ -6,6 +6,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class DBRepository implements Repository<Car, Long> {
@@ -110,26 +111,76 @@ public class DBRepository implements Repository<Car, Long> {
 
     }
 
+    @Override
     public Car save(Car entity) {
-        return null;
+        if (Objects.isNull(entity.id)) {
+            return insert(entity);
+        }
 
+        Optional<Car> car = findById(entity.id);
+        if (car.isEmpty()) {
+            return insert(entity);
+        } else {
+            return update(entity);
+        }
     }
 
-    private Car insert(Car car) {
-        return null;
-
+    private Car insert(Car entity) {
+        String sql = "INSERT INTO cars (brand, model) VALUES (?, ?)";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, entity.brand);
+            statement.setString(2, entity.model);
+            statement.executeUpdate();
+            try (ResultSet keys = statement.getGeneratedKeys()) {
+                keys.next();
+                entity.id = keys.getLong(1);
+                return entity;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
+    private Car update(Car entity) {
+        String sql = "UPDATE cars SET brand=?, model=? WHERE id=?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, entity.brand);
+            statement.setString(2, entity.model);
+            statement.setLong(3, entity.id);
+            statement.executeUpdate();
+            return entity;
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
     public void delete(Car entity) {
-
+        deleteById(entity.id);
     }
 
+    @Override
     public void deleteById(Long id) {
-
+        String sql = "DELETE FROM cars WHERE id=?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
+    @Override
     public void deleteAll() {
-
+        String sql = "DELETE FROM cars";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
-
 }
