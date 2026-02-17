@@ -1,10 +1,16 @@
 package com.nbicocchi.exercises.lesson10;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class DBRepository implements Repository<Car, Long> {
+    private static final String JDBC_Driver = "org.postgresql.Driver";
+    private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/jdbc_schema?user=user&password=secret&ssl=false";
+
 
 
     public DBRepository() {
@@ -20,19 +26,22 @@ public class DBRepository implements Repository<Car, Long> {
     }
 
     public Optional<Car> findById(Long id) {
-
+        return Optional.empty();
     }
 
 
     public Iterable<Car> findAll() {
+        return new ArrayList<>();
 
     }
 
     public Car save(Car entity) {
+        return null;
 
     }
 
     private Car insert(Car car) {
+        return null;
 
     }
 
