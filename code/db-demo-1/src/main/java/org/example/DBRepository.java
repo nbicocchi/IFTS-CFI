@@ -93,7 +93,20 @@ public class DBRepository implements Repository<Car, Long> {
     }
 
     public Iterable<Car> findAll() {
-        return new ArrayList<>();
+        String sql = "SELECT * FROM cars";
+        List<Car> cars = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                cars.add(new Car(rs.getLong("id"),
+                        rs.getString("brand"),
+                        rs.getString("model")));
+            }
+            return cars;
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
 
     }
 
