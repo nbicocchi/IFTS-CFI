@@ -8,13 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class DBRepository implements Repository<Car, Long> {
-    private static final String JDBC_Driver = "org.postgresql.Driver";
-    private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/jdbc_schema?user=user&password=secret&ssl=false";
-
-
+    private static final String JDBC_Driver = "org.sqlite.JDBC";
+    private static final String JDBC_URL = "jdbc:sqlite:jdbc_schema.db";
+    HikariDataSource dataSource;
 
     public DBRepository() {
-
+        dataSource = initDataSource(JDBC_Driver, JDBC_URL);
     }
 
     private HikariDataSource initDataSource(String JDBC_Driver, String JDBC_URL) {
