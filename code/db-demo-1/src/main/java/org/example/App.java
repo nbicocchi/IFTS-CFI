@@ -1,4 +1,4 @@
-package com.nbicocchi.exercises.lesson10;
+package org.example;
 
 public class App {
     public static void main(String[] args) {

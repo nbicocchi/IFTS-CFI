@@ -1,4 +1,4 @@
-package com.nbicocchi.exercises.lesson10;
+package org.example;
 
 import java.util.ArrayList;
 import java.util.List;

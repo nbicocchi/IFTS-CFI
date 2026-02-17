@@ -1,4 +1,4 @@
-package com.nbicocchi.exercises.lesson10;
+package org.example;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
