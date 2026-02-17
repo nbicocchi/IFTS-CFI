@@ -6,4 +6,6 @@ module org.example.demobb {
 
     opens org.example.demobb to javafx.fxml;
     exports org.example.demobb;
+    exports org.example.demobb.persistence.model;
+    opens org.example.demobb.persistence.model to javafx.fxml;
 }

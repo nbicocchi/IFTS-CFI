@@ -1,4 +1,4 @@
-package org.example.demobb;
+package org.example.demobb.persistence.model;
 
 public class Person {
     String name;

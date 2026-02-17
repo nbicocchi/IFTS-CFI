@@ -2,18 +2,12 @@ package org.example.demobb;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.Window;
+import org.example.demobb.persistence.model.Person;
 
 import java.io.File;
 import java.io.IOException;
