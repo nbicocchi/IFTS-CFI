@@ -8,23 +8,22 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import org.example.demobb.persistence.model.Person;
+import org.example.demobb.persistence.repository.PersonRepository;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 public class HelloController {
-    @FXML
-    private ListView<Person> lvPersons;
+    @FXML private ListView<Person> lvPersons;
+    @FXML private TextField tfLastname;
+    @FXML private TextField tfName;
+    @FXML private TextField tfPhone;
+    PersonRepository personRepository;
 
-    @FXML
-    private TextField tfLastname;
-
-    @FXML
-    private TextField tfName;
-
-    @FXML
-    private TextField tfPhone;
+    public void initialize() {
+        personRepository = new PersonRepository();
+    }
 
     @FXML
     void onAddClicked(ActionEvent event) {
@@ -32,6 +31,7 @@ public class HelloController {
                 tfLastname.getText(),
                 tfPhone.getText());
         lvPersons.getItems().add(p);
+        personRepository.save(p);
     }
 
     @FXML
@@ -40,13 +40,17 @@ public class HelloController {
                 tfLastname.getText(),
                 tfPhone.getText());
         int indexToUpdate = lvPersons.getSelectionModel().getSelectedIndex();
+        Person personToUpdate = lvPersons.getItems().get(indexToUpdate);
         lvPersons.getItems().set(indexToUpdate, p);
+        personRepository.save(p);
     }
 
     @FXML
     void onRemoveClicked(ActionEvent event) {
         int indexToRemovre = lvPersons.getSelectionModel().getSelectedIndex();
-        lvPersons.getItems().remove(indexToRemovre);
+        Person p = lvPersons.getItems().get(indexToRemovre);
+        lvPersons.getItems().remove(p);
+        personRepository.delete(p);
     }
 
     @FXML

@@ -1,6 +1,7 @@
 package org.example.demobb.persistence.model;
 
 public class Person {
+    Long id;
     String name;
     String lastname;
     String phone;
@@ -12,6 +13,21 @@ public class Person {
         this.name = name;
         this.lastname = lastname;
         this.phone = phone;
+    }
+
+    public Person(Long id, String name, String lastname, String phone) {
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.phone = phone;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
